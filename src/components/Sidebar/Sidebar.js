@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ReactDOM from 'react-dom';
-import Button from '@material-ui/core/Button';
 
 const Nav = () => (
   <div className="navbar">
@@ -9,7 +7,7 @@ const Nav = () => (
       <ul>
         <li>
           <Link to="/user">
-            <Button variant="raised">Home</Button>
+            User Home
           </Link>
         </li>
         <li>
@@ -17,12 +15,9 @@ const Nav = () => (
             Info Page
           </Link>
         </li>
-        <li>
-       
-        </li>
       </ul>
     </div>
   </div>
 );
 
-export default Nav;
+export default Sidebar;

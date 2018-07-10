@@ -26,7 +26,7 @@ class InfoPage extends Component {
       content = (
         <div>
           <p>
-            Info Page
+            User Name: {this.props.user.userName}
           </p>
         </div>
       );

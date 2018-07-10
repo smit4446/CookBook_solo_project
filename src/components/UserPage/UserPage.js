@@ -38,9 +38,7 @@ class UserPage extends Component {
           >
             Welcome, { this.props.user.userName }!
           </h1>
-          <button
-            onClick={this.logout}
-          >
+          <button onClick={this.logout}>
             Log Out
           </button>
         </div>
