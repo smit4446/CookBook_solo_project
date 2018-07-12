@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
 import { connect } from 'react-redux';
-
+import Button from '@material-ui/core/Button';
 import Nav from '../../components/Nav/Nav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 
@@ -15,7 +15,7 @@ class InfoPage extends Component {
 
   componentDidUpdate() {
     if (!this.props.user.isLoading && this.props.user.userName === null) {
-      this.props.history.push('home');
+      this.props.history.push('login');
     }
   }
 
@@ -26,7 +26,7 @@ class InfoPage extends Component {
       content = (
         <div>
           <p>
-            User Name: {this.props.user.userName}
+            Info Page
           </p>
         </div>
       );

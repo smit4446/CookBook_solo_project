@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Link } from 'react';
 import { connect } from 'react-redux';
-
+import Button from '@material-ui/core/Button';
 import Nav from '../../components/Nav/Nav';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
@@ -9,9 +9,17 @@ import { triggerLogout } from '../../redux/actions/loginActions';
 
 const mapStateToProps = state => ({
   user: state.user,
+  state
 });
 
 class UserPage extends Component {
+  constructor(){
+    super();
+    this.state = {
+      cookbookArray: []
+    }
+  }
+
   componentDidMount() {
     this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
   }
@@ -24,11 +32,16 @@ class UserPage extends Component {
 
   logout = () => {
     this.props.dispatch(triggerLogout());
-    // this.props.history.push('home');
   }
 
   render() {
     let content = null;
+
+    {this.state.cookbookArray.map((book, i) => 
+      <div key={i}>
+        <Button><Link>{book.cookbook_name}</Link></Button>
+      </div>
+    )}
 
     if (this.props.user.userName) {
       content = (
@@ -38,7 +51,9 @@ class UserPage extends Component {
           >
             Welcome, { this.props.user.userName }!
           </h1>
-          <button onClick={this.logout}>
+          <button
+            onClick={this.logout}
+          >
             Log Out
           </button>
         </div>
@@ -56,4 +71,3 @@ class UserPage extends Component {
 
 // this allows us to use <App /> in index.js
 export default connect(mapStateToProps)(UserPage);
-
