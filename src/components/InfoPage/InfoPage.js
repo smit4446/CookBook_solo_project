@@ -33,8 +33,9 @@ class InfoPage extends Component {
     }
 
     return (
+
       <div>
-        <Nav />
+        <pre>{JSON.stringify(this.props.cookbook)}</pre>
         { content }
       </div>
     );

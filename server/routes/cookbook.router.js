@@ -3,8 +3,8 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    let queryText = `SELECT * FROM categories where cookbook_id = $1 ORDER BY category_name ASC;`;
-    pool.query(queryText, [cookbook_id])
+    let queryText = `SELECT * FROM categories;`;
+    pool.query(queryText)
     .then((result) => {
         console.log('got categories from database', result.rows);
         res.send(result.rows);
