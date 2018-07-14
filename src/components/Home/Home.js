@@ -1,18 +1,20 @@
 import React, { Component, Link} from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import Nav from '../../components/Nav/Nav';
+import HomeNav from '../../components/HomeNav/HomeNav';
 import Button from '@material-ui/core/Button';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
 import InfoPage from '../InfoPage/InfoPage';
 import Cookbook from '../Cookbook/Cookbook';
 import {COOKBOOK_ACTIONS} from '../../redux/actions/cookbookActions';
+import '../Home/home.css'
+import Category from '../Category/Category';
+
 
 const mapStateToProps = state => ({
   user: state.user,
-  cookbooks: state,
-  index: 0
+  cookbooks: state.cookbookReducer.cookbook,
 });
 
 class Home extends Component {
@@ -31,13 +33,23 @@ class Home extends Component {
 
   componentDidUpdate() {
     if (!this.props.user.isLoading && this.props.user.userName === null) {
-      this.props.history.push('home');
+      // this.props.history.push('home');
     }
   }
 
-  handleClick = (cookbooks, i) => {
-    console.log(this.props.cookbooks.cookbook);
-    
+  logout = () => {
+    this.props.dispatch(triggerLogout());
+    this.props.history.push('home');
+  }
+
+  handleClick = (book) => {
+    console.log('book is', book);
+    const action = ({
+      type: 'SET_ACTIVE_BOOK',
+      payload: book
+    })
+    this.props.dispatch(action);
+    this.props.history.push('cookbook');
   }
     
   render() {
@@ -49,27 +61,26 @@ class Home extends Component {
             Log Out
           </Button>
         </div>
-        
       );
     }
     
     return (
       <div>
-        <Nav />
-        <pre>{JSON.stringify(this.props.cookbooks.cookbook.cookbook)}</pre>
-          {this.props.cookbooks.cookbook.cookbook.map(book => {
+        <HomeNav />
+        <input ></input><Button className="Button" size="small" variant="contained">+ Add Cookbook</Button>
+          {this.props.cookbooks.map(book => {
             return (
-        <div>
-          <Button onClick={() => this.handleClick()} variant="contained">{book.cookbook_name}</Button>
+        <div className="Button" key={book.id}>
+          <Button  size="small" onClick={() => this.handleClick(book)} variant="contained">{book.cookbook_name}</Button>
         </div>)}
         )}
-        
-        <Button variant="contained">+ Add Cookbook</Button>
-
         { content }
-        <div>
-          <Cookbook cookbook={this.state.cookbookArray[this.state.index]}/>
+        {/* <div>
+          <Cookbook size="small" cookbook={this.props.cookbooks}/>
         </div>
+        <div>
+          <Category size="small" category={this.props.categories}/>
+        </div> */}
       </div>
     );
   }

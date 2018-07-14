@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import Nav from '../../components/Nav/Nav';
+import ProfileNav from '../../components/ProfileNav/ProfileNav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 
 const mapStateToProps = state => ({
@@ -26,15 +26,17 @@ class InfoPage extends Component {
       content = (
         <div>
           <p>
-            Info Page
+            Profile:
+            {this.props.user.userName}
           </p>
         </div>
       );
     }
 
     return (
-
+      
       <div>
+        <ProfileNav />
         <pre>{JSON.stringify(this.props.cookbook)}</pre>
         { content }
       </div>

@@ -13,6 +13,7 @@ const userRouter = require('./routes/user.router');
 const homeRouter = require('./routes/home.router');
 const cookbookRouter = require('./routes/cookbook.router');
 const categoryRouter = require('./routes/category.router');
+// const recipeRouter = require('./routes/recipe.router')
 // const recipeRouter = require('./routes/recipeRouter');
 
 // Body parser middleware
@@ -30,7 +31,8 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/main', homeRouter);
 app.use('/cookbook', cookbookRouter);
-app.use('/category', categoryRouter)
+app.use('/category', categoryRouter);
+// app.use('/recipe', recipeRouter);
 
 // Serve static files
 app.use(express.static('build'));

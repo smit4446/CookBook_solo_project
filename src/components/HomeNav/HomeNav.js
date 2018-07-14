@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import SvgIcons from '../HomeIcon/HomeIcon';
 
-const Nav = () => (
+const HomeNav = () => (
   <div className="navbar">
     <div>
       <ul>
@@ -10,14 +11,9 @@ const Nav = () => (
             Profile
           </Link>
         </li>
-        <li>
-          <Link to="/main">
-            Home
-          </Link>
-        </li>
       </ul>
     </div>
   </div>
 );
 
-export default Nav;
+export default HomeNav;

@@ -1,6 +1,5 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { USER_ACTIONS } from '../actions/userActions';
-import axios from 'axios';
 import {COOKBOOK_ACTIONS} from '../actions/cookbookActions';
 import {getCategories} from '../requests/cookbookRequests';
 
@@ -9,7 +8,7 @@ import {getCategories} from '../requests/cookbookRequests';
 function* fetchCategories() {
   try {
     let categories = yield getCategories();
-    console.log('in category saga');
+    console.log('in category saga', categories);
     yield put({
       type: COOKBOOK_ACTIONS.SHOW_CATEGORIES,
       payload: categories

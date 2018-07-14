@@ -1,7 +1,7 @@
 import React, { Component, Link } from 'react';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import Nav from '../../components/Nav/Nav';
+// import HomeNav from '../../components/HomeNav/HomeNav';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
@@ -62,7 +62,7 @@ class UserPage extends Component {
 
     return (
       <div>
-        <Nav />
+       
         { content }
       </div>
     );
