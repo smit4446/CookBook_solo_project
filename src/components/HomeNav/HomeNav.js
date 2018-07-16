@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import SvgIcons from '../HomeIcon/HomeIcon';
+// import SvgIcons from '../HomeIcon/HomeIcon';
 
 const HomeNav = () => (
   <div className="navbar">

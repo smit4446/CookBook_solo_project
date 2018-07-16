@@ -49,6 +49,7 @@ router.delete('/:id', (req,res) => {
 });
 
 router.post('/', (req,res) => {
+    console.log('in category router post',req.body);
     // if(req.isAuthenticated()){
         let queryText = 'INSERT INTO recipies (recipe_name, category_id, user_id) Values ($1, $2, $3);';
         pool.query(queryText, [req.body.recipe_name, req.body.category_id, req.body.user_id]).then((result)=>{

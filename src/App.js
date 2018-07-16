@@ -15,6 +15,7 @@ import Home from './components/Home/Home';
 import Cookbook from './components/Cookbook/Cookbook';
 import Category from './components/Category/Category';
 import Recipe from './components/Recipe/Recipe';
+import Footer from './components/Footer/Footer';
 
 import './styles/main.css';
 
@@ -61,6 +62,7 @@ const App = () => (
 
       </Switch>
     </Router>
+    <Footer title="Lauren Smith"/>
   </div>
 );
 

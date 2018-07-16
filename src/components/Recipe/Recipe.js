@@ -41,17 +41,6 @@ class Recipe extends Component {
     this.props.history.push('recipe');
   }
 
-  // getCategories = () => {
-  //   console.log('in getCategories');
-  //   axios.get('/cookbook').then((response)=>{
-  //     console.log('in the axios GET call for Cookbook page', response.data);
-  //     this.setState({
-  //       categoryArray: response.data
-  //     })
-  //     console.log(this.state.categoryArray);  
-  //   })
-  // }
-
   render() {
     let content = null;
 
@@ -59,7 +48,7 @@ class Recipe extends Component {
       content = (
         <div>
           <p>
-            Desserts
+            {this.props.recipes.recipe_name}
           </p>
         </div>
       );
@@ -70,13 +59,13 @@ class Recipe extends Component {
 
         { content }
         <input></input><Button size="small" variant="contained">+ Add Recipe</Button>
-        <pre>{JSON.stringify(this.props.activeCategory.id)}</pre> 
         {this.props.recipes.filter(recipe => recipe.category_id === this.props.activeCategory.id).map(recipe => {
             return (
         <div>
           <Button size="small" onClick={() => this.handleClick(recipe.id)} variant="contained">{recipe.recipe_name}</Button>
         </div>)}
         )}
+        
         
       </div>
     );

@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import { connect } from 'react-redux';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import ProfileNav from '../../components/ProfileNav/ProfileNav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 
@@ -37,7 +37,6 @@ class InfoPage extends Component {
       
       <div>
         <ProfileNav />
-        <pre>{JSON.stringify(this.props.cookbook)}</pre>
         { content }
       </div>
     );

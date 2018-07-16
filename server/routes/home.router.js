@@ -49,9 +49,9 @@ router.delete('/:id', (req,res) => {
 router.post('/', (req,res) => {
     // if(req.isAuthenticated()){
         let queryText = 'INSERT INTO cookbooks (cookbook_name, user_id) Values ($1, $2);';
-        pool.query(queryText, [req.body.cookbook_name, req.body.user_id]).then((result)=>{
-            res.sendStatus(201);
-        }).catch((error)=>{
+        pool.query(queryText, [req.body.cookbook_name, req.body.user_id])
+        .then((result)=>{ res.sendStatus(201);})
+        .catch((error)=>{
             console.log('error posting cookbook', error);
             res.sendStatus(500);
         })

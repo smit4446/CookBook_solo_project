@@ -48,6 +48,8 @@ router.delete('/:id', (req,res) => {
 
 router.post('/', (req,res) => {
     // if(req.isAuthenticated()){
+        console.log(req.body);
+        
         let queryText = 'INSERT INTO categories (category_name, cookbook_id, user_id) Values ($1, $2, $3);';
         pool.query(queryText, [req.body.category_name, req.body.cookbook_id, req.body.user_id]).then((result)=>{
             res.sendStatus(201);

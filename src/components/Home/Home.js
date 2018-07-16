@@ -1,15 +1,18 @@
-import React, { Component, Link} from 'react';
+import React, { Component} from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import HomeNav from '../../components/HomeNav/HomeNav';
-import Button from '@material-ui/core/Button';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
-import InfoPage from '../InfoPage/InfoPage';
-import Cookbook from '../Cookbook/Cookbook';
 import {COOKBOOK_ACTIONS} from '../../redux/actions/cookbookActions';
-import '../Home/home.css'
-import Category from '../Category/Category';
+import AddCookbook from '../AddCookbook/AddCookbook';
+import EditCookbook from '../EditCookbook/EditCookbook';
+
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 
 const mapStateToProps = state => ({
@@ -18,11 +21,14 @@ const mapStateToProps = state => ({
 });
 
 class Home extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
-      cookbookArray: [],
-      index: 0
+      newCookbook: {
+        cookbook_name: '',
+        image: '',
+        user_id: 1
+      }
     }
   }
 
@@ -51,6 +57,44 @@ class Home extends Component {
     this.props.dispatch(action);
     this.props.history.push('cookbook');
   }
+
+  handleCookbook = () => (event) => {
+    console.log('event happended')
+    this.setState({
+      newCookbook: {
+          ...this.state.newCookbook,
+          cookbook_name: event.target.value,
+      }
+    })
+    console.log(this.state);
+  }
+
+  addCookbook = (cookbook) => {
+    console.log('new book is', cookbook);
+    const action = ({
+      type: COOKBOOK_ACTIONS.POST_COOKBOOK,
+      payload: cookbook
+    })
+    this.props.dispatch(action);
+  }
+
+  // updateCookbook = (id) => {
+  //   console.log('in updateCookbook');
+  //   // const action = ({
+  //   //   type: COOKBOOK_ACTIONS.UPDATE_COOKBOOK,
+  //   //   payload: id
+  //   // })
+  //   // this.props.dispatch(action); 
+  // }
+
+  deleteCookbook = (id) => {
+    console.log('in deleteCookbook');
+    const action = ({
+      type: COOKBOOK_ACTIONS.DELETE_COOKBOOK,
+      payload: id
+    })
+    this.props.dispatch(action);
+  }
     
   render() {
     let content = null;
@@ -67,20 +111,36 @@ class Home extends Component {
     return (
       <div>
         <HomeNav />
-        <input ></input><Button className="Button" size="small" variant="contained">+ Add Cookbook</Button>
-          {this.props.cookbooks.map(book => {
+          {this.props.cookbooks.map((book) => {
             return (
-        <div className="Button" key={book.id}>
-          <Button  size="small" onClick={() => this.handleClick(book)} variant="contained">{book.cookbook_name}</Button>
-        </div>)}
+              <div className="CookbookDiv" key={book.id}>
+                 <Card  >
+                    <CardMedia
+                      image="food--1200x600.jpg"
+                      title="food--1200x600"
+                    />
+                    <CardContent onClick={() => this.handleClick(book)}>
+                      <Typography gutterBottom variant="headline" component="h2">
+                        {book.cookbook_name}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      {/* <Button onClick={() => this.updateCookbook(book.id)} size="small" color="primary" >
+                        Update
+                      </Button> */}
+                      <EditCookbook />
+                      <Button onClick={() => this.deleteCookbook(book.id)} size="small" color="primary">
+                        Delete
+                      </Button>
+                    </CardActions>
+                  </Card>
+              </div>)}
         )}
         { content }
-        {/* <div>
-          <Cookbook size="small" cookbook={this.props.cookbooks}/>
-        </div>
-        <div>
-          <Category size="small" category={this.props.categories}/>
-        </div> */}
+        <input type="text" value={this.state.cookbook_name} onChange={this.handleCookbook('cookbook_name')}></input>
+        <Button onClick={()=>this.addCookbook(this.state.newCookbook)} className="Button" size="small" variant="contained">+ Add Cookbook</Button>
+
+        <AddCookbook />
       </div>
     );
   }

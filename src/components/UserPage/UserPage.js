@@ -1,6 +1,6 @@
 import React, { Component, Link } from 'react';
 import { connect } from 'react-redux';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 // import HomeNav from '../../components/HomeNav/HomeNav';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
@@ -39,7 +39,7 @@ class UserPage extends Component {
 
     {this.state.cookbookArray.map((book, i) => 
       <div key={i}>
-        <Button><Link>{book.cookbook_name}</Link></Button>
+        <Link>{book.cookbook_name}</Link>
       </div>
     )}
 
