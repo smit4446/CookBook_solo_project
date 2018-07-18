@@ -31,14 +31,16 @@ export function deleteCookbook(id){
     })
 }
 
-// export function getCategories() {
-//     return axios.get('/cookbook')
-//     .then(response => response.data)
-//     .catch((error)=>{
-//         console.log('error getting categories', error);
-//         throw error.response || error;      
-//     })
-// }
+export function getUser() {
+    return axios.get('/main')
+    .then((response) => {
+        console.log('successfully got user', response);
+    })
+    .catch((error) => {
+        console.log('error getting user');
+        throw error.response || error;
+    })
+}
 
 export function getRecipes() {
     return axios.get('/category')

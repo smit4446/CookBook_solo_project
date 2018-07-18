@@ -8,7 +8,7 @@ const HomeNav = () => (
       <ul>
         <li>
           <Link to="/info">
-            Profile
+            Favorites
           </Link>
         </li>
       </ul>

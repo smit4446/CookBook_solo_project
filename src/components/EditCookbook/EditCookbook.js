@@ -6,6 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import {COOKBOOK_ACTIONS} from '../../redux/actions/cookbookActions';
 
 export default class EditCookbook extends React.Component {
   state = {
@@ -19,6 +20,15 @@ export default class EditCookbook extends React.Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+
+  updateCookbook = (id) => {
+    console.log('in updateCookbook');
+    const action = ({
+      type: COOKBOOK_ACTIONS.UPDATE_COOKBOOK,
+      payload: id
+    })
+    this.props.dispatch(action); 
+  }
 
   render() {
     return (

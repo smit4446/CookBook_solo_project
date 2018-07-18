@@ -17,6 +17,16 @@ const cookbook = (state=[], action) => {
     }
 }
 
+const user = (state=[], action) => {
+    switch(action.type) {
+        case COOKBOOK_ACTIONS.SHOW_USER:
+            console.log('in cookbook reducer', action.payload);
+            return action.payload;
+        default:
+            return state;  
+    }
+}
+
 const category = (state=[], action) => {
     switch(action.type) {
         case COOKBOOK_ACTIONS.SHOW_CATEGORIES:
@@ -73,6 +83,7 @@ export default combineReducers({
     cookbook,
     category,
     recipe,
+    user,
     activeCookbook,
     activeCategory
 })

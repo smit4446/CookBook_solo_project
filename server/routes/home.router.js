@@ -58,4 +58,16 @@ router.post('/', (req,res) => {
     // }
 });
 
+router.get('/', (req, res) => {
+    let queryText = `SELECT * FROM person;`;
+    pool.query(queryText)
+    .then((result) => {
+        console.log('got person from database', result.rows);
+        res.send(result.rows);
+    }).catch((error)=>{
+        console.log('error getting person from database', error);
+        res.sendStatus(500);   
+    })
+});
+
 module.exports = router;

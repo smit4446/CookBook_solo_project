@@ -6,6 +6,7 @@ import { USER_ACTIONS } from '../../redux/actions/userActions';
 import {COOKBOOK_ACTIONS} from '../../redux/actions/cookbookActions';
 import AddCategory from '../AddCategory/AddCategory';
 import EditCategory from '../EditCategory/EditCategory';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
 import Card from '@material-ui/core/Card';
@@ -14,6 +15,13 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 const mapStateToProps = state => ({
@@ -34,6 +42,10 @@ class Cookbook extends Component {
       }
     }
   }
+
+  state = {
+    open: false,
+  };
 
   componentDidMount() {
     this.props.dispatch({type: USER_ACTIONS.FETCH_USER});
@@ -76,6 +88,7 @@ class Cookbook extends Component {
       payload: category
     })
     this.props.dispatch(action);
+    this.handleClose();
   }
 
   // updateCategory = (id) => {
@@ -96,6 +109,14 @@ class Cookbook extends Component {
     this.props.dispatch(action);
   }
 
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
   render() {
     let content = null;
     
@@ -115,8 +136,8 @@ class Cookbook extends Component {
         { content }
         {this.props.categories.filter(category => category.cookbook_id === this.props.activeCookbook.id).map(category => {
             return (
-        <div className="CategoryDiv" key={category.id}>
-          <Card  >
+        <div className="CategoryDiv">
+          <Card  key={category.id}>
                     <CardMedia
                       image="/images/food--1200x600.jpg"
                       title="Food"
@@ -132,16 +153,47 @@ class Cookbook extends Component {
                       </Button> */}
                       <EditCategory />
                       <Button onClick={() => this.deleteCategory(category.id)} size="small" color="primary">
-                        Delete
+                        Delete <DeleteIcon className="rightIcon" />
                       </Button>
                     </CardActions>
                   </Card>
         </div>)}
         )}
 
-        <input type="text" value={this.state.category_name} onChange={this.handleCategory('category_name')}></input>
-        <Button onClick={()=>this.addCategory(this.state.newCategory)} className="Button" size="small" variant="contained">+ Add Category</Button>
-        <AddCategory />
+        {/* <input type="text" value={this.state.category_name} onChange={this.handleCategory('category_name')}></input>
+        <Button onClick={()=>this.addCategory(this.state.newCategory)} className="Button" size="small" variant="contained">+ Add Category</Button> */}
+        
+        <Button onClick={this.handleClickOpen}>+ Add Category</Button>
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Add A New Category To Your Cookbook!</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              To create a new category, please enter the name below.
+            </DialogContentText>
+            <TextField 
+              value={this.state.category_name} 
+              onChange={this.handleCategory('category_name')}
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Cookbook Name"
+              type="email"
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={()=>this.addCategory(this.state.newCategory)} color="primary">
+              Add Category
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }
