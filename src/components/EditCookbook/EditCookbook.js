@@ -7,8 +7,24 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {COOKBOOK_ACTIONS} from '../../redux/actions/cookbookActions';
+import { connect } from 'react-redux';
+// import { timingSafeEqual } from 'crypto';
 
-export default class EditCookbook extends React.Component {
+const mapStateToProps = state => ({
+  user: state.user,
+  cookbooks: state.cookbookReducer.cookbook
+});
+
+class EditCookbook extends React.Component {
+  constructor(){
+    super();
+    this.state = {
+      updatedCookbook: {
+        cookbook_name: ''
+      }
+    }
+  }  
+
   state = {
     open: false,
   };
@@ -21,13 +37,25 @@ export default class EditCookbook extends React.Component {
     this.setState({ open: false });
   };
 
-  updateCookbook = (id) => {
-    console.log('in updateCookbook');
+  handleUpdate = (event) => {
+    console.log('event happended', event.target.value)
+    this.setState({
+      updatedCookbook: {
+          ...this.props.book,
+          cookbook_name: event.target.value,
+      }
+    })
+    console.log(this.state.updatedCookbook);
+  }
+
+  updateCookbook = () => {
+    console.log('in updateCookbook', this.state.updatedCookbook);
     const action = ({
       type: COOKBOOK_ACTIONS.UPDATE_COOKBOOK,
-      payload: id
+      payload: this.state.updatedCookbook
     })
     this.props.dispatch(action); 
+    this.handleClose();
   }
 
   render() {
@@ -45,6 +73,9 @@ export default class EditCookbook extends React.Component {
               To edit the name of your cookbook, please enter a new name below.
             </DialogContentText>
             <TextField
+              onChange={this.handleUpdate}
+              value={this.state.cookbook_name}
+              defaultValue={this.props.book.cookbook_name}
               autoFocus
               margin="dense"
               id="name"
@@ -57,7 +88,7 @@ export default class EditCookbook extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleClose} color="primary">
+            <Button  onClick={this.updateCookbook} color="primary">
               Edit Cookbook
             </Button>
           </DialogActions>
@@ -66,3 +97,5 @@ export default class EditCookbook extends React.Component {
     );
   }
 }
+
+export default connect(mapStateToProps)(EditCookbook);

@@ -1,10 +1,9 @@
 import React from 'react';
+import './footer.css'
 
 const Footer = ({ title }) => (
-  <div className="instructions">
-    <div>
-      <h1 className="lead">{ title }</h1>
-    </div>
+  <div className="footer">
+      <h4 className="lead">{ title }</h4>
   </div>
 );
 

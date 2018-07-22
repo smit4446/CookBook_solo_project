@@ -5,14 +5,14 @@ import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
 import {COOKBOOK_ACTIONS} from '../../redux/actions/cookbookActions';
 import EditCookbook from '../EditCookbook/EditCookbook';
-import ButtonBases from '../ComplexButtons/ComplexButtons';
+// import ButtonBases from '../ComplexButtons/ComplexButtons';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+// import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
@@ -35,9 +35,7 @@ class Home extends Component {
     super(props);
     this.state = {
       newCookbook: {
-        cookbook_name: '',
-        image: '',
-        user_id: 1
+        image: ''
       }
     }
   }
@@ -93,15 +91,6 @@ class Home extends Component {
     this.handleClose();
   }
 
-  // updateCookbook = (id) => {
-  //   console.log('in updateCookbook');
-  //   // const action = ({
-  //   //   type: COOKBOOK_ACTIONS.UPDATE_COOKBOOK,
-  //   //   payload: id
-  //   // })
-  //   // this.props.dispatch(action); 
-  // }
-
   deleteCookbook = (id) => {
     console.log('in deleteCookbook');
     const action = ({
@@ -144,19 +133,16 @@ class Home extends Component {
             return (
               <div className="CookbookDiv" >
                  <Card key={book.id}>
-                    <CardMedia
+                    {/* <CardMedia
                       image="food--1200x600.jpg"
                       title="food--1200x600"
-                    />
+                    /> */}
                     <CardContent onClick={() => this.handleClick(book)}>
                       <Typography gutterBottom variant="headline" component="h2">
                         {book.cookbook_name}
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      {/* <Button onClick={() => this.updateCookbook(book.id)} size="small" color="primary" >
-                        Update
-                      </Button> */}
                       <EditCookbook book={book}/>
                       <Button onClick={() => this.deleteCookbook(book.id)} size="small" color="primary">
                         Delete <DeleteIcon className="rightIcon" />
@@ -179,6 +165,7 @@ class Home extends Component {
             </DialogContentText>
             <TextField 
               value={this.state.cookbook_name} 
+              defaultValue={this.state.cookbook_name}
               onChange={this.handleCookbook('cookbook_name')}
               autoFocus
               margin="dense"

@@ -31,3 +31,15 @@ export function deleteCategory(id){
     })
 }
 
+export function updateCategory(category, id){
+    console.log('the category is: ', category, id)
+    return axios.put(`/cookbook/${id}`, category)
+    .then((response) => {
+        console.log('successfully updated category', response);
+    })
+    .catch((error) => {
+        console.log('error updating category', error);
+        throw error.response || error;
+    })
+}
+

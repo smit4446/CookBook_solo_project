@@ -62,7 +62,9 @@ const App = () => (
 
       </Switch>
     </Router>
+    <div>
     <Footer title="Lauren Smith"/>
+    </div>
   </div>
 );
 

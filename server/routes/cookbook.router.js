@@ -20,15 +20,12 @@ router.put('/:id', (req, res) => {
     // if (req.isAuthenticated()){
         let queryText = `UPDATE categories SET category_name = $1 WHERE id = $2;`;
         pool.query(queryText, [req.body.category_name, id]).then((result) => {
-            res.send(result.rows);
+            res.sendStatus(201);
         }).catch((error)=>{
             console.log('error updating category name', error);
             res.sendStatus(500);
         })
-    // } else {
-    //     res.sendStatus(403);
-    // }
-});
+});  
 
 router.delete('/:id', (req,res) => {
     const id = req.params.id;
@@ -40,10 +37,6 @@ router.delete('/:id', (req,res) => {
             console.log('error deleting category');
             res.sendStatus(500);
         })
-    // } 
-    // else {
-    //     res.sendStatus(403);
-    // }
 });
 
 router.post('/', (req,res) => {
@@ -51,7 +44,7 @@ router.post('/', (req,res) => {
         console.log(req.body);
         
         let queryText = 'INSERT INTO categories (category_name, cookbook_id, user_id) Values ($1, $2, $3);';
-        pool.query(queryText, [req.body.category_name, req.body.cookbook_id, req.body.user_id]).then((result)=>{
+        pool.query(queryText, [req.body.category_name, req.body.cookbook_id, req.user.id]).then((result)=>{
             res.sendStatus(201);
         }).catch((error)=>{
             console.log('error posting category', error);

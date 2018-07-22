@@ -6,8 +6,26 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import {COOKBOOK_ACTIONS} from '../../redux/actions/cookbookActions';
+import { connect } from 'react-redux';
+// import { timingSafeEqual } from 'crypto';
 
-export default class EditCategory extends React.Component {
+const mapStateToProps = state => ({
+  user: state.user,
+  categories: state.cookbookReducer.category,
+  activeCookbook: state.cookbookReducer.activeCookbook
+});
+
+class EditCategory extends React.Component {
+  constructor(){
+    super();
+    this.state = {
+      updatedCategory: {
+        category_name: ''
+      }
+    }
+  }  
+
   state = {
     open: false,
   };
@@ -19,6 +37,27 @@ export default class EditCategory extends React.Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+
+  handleUpdate = (event) => {
+    console.log('event happened', event.target.value)
+    this.setState({
+      updatedCategory: {
+          ...this.props.category,
+          category_name: event.target.value,
+      }
+    })
+    console.log(this.state.updatedCategory);
+  }
+
+  updateCategory = () => {
+    console.log('in updateCategory', this.state.updatedCategory);
+    const action = ({
+      type: COOKBOOK_ACTIONS.UPDATE_CATEGORY,
+      payload: this.state.updatedCategory
+    })
+    this.props.dispatch(action); 
+    this.handleClose();
+  }
 
   render() {
     return (
@@ -35,6 +74,9 @@ export default class EditCategory extends React.Component {
               To edit the name of your category, please enter a new name below.
             </DialogContentText>
             <TextField
+              onChange={this.handleUpdate}
+              value={this.state.category_name}
+              defaultValue={this.props.category.category_name}
               autoFocus
               margin="dense"
               id="name"
@@ -43,25 +85,11 @@ export default class EditCategory extends React.Component {
               fullWidth
             />
           </DialogContent>
-          <DialogTitle id="form-dialog-title">Move this category to a different cookbook!</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Please select a new Cookbook below.
-            </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Cookbook Name"
-              type="email"
-              fullWidth
-            />
-          </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleClose} color="primary">
+            <Button  onClick={this.updateCategory} color="primary">
               Edit Category
             </Button>
           </DialogActions>
@@ -70,3 +98,5 @@ export default class EditCategory extends React.Component {
     );
   }
 }
+
+export default connect(mapStateToProps)(EditCategory);

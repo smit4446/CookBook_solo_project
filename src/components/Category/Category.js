@@ -5,11 +5,12 @@ import { USER_ACTIONS } from '../../redux/actions/userActions';
 import {COOKBOOK_ACTIONS} from '../../redux/actions/cookbookActions';
 // import AddRecipe from '../AddRecipe/AddRecipe';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditRecipe from '../EditRecipe/EditRecipe';
 
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+// import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
@@ -20,10 +21,15 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import IconButton from '@material-ui/core/IconButton';
+
 const mapStateToProps = state => ({
   user: state.user,
   recipes: state.cookbookReducer.recipe,
-  activeCategory: state.cookbookReducer.activeCategory
+  activeCategory: state.cookbookReducer.activeCategory,
+  likes: state.cookbookReducer.likes
 });
 
 class Category extends Component {
@@ -33,12 +39,11 @@ class Category extends Component {
       newRecipe: {
         recipe_name: '',
         category_id: '',
-        user_id: 1,
         prep_time: '',
         cook_time: '',
         servings: '',
         instructions: '',
-        ingredients: '',
+        ingredients: ''
       }
     }
   }
@@ -50,6 +55,7 @@ class Category extends Component {
   componentDidMount() {
     this.props.dispatch({type: USER_ACTIONS.FETCH_USER});
     this.props.dispatch({type: COOKBOOK_ACTIONS.FETCH_RECIPES})
+    this.props.dispatch({type: COOKBOOK_ACTIONS.FETCH_LIKES})
     console.log('in component did mount');
   }
 
@@ -76,6 +82,7 @@ class Category extends Component {
           ...this.state.newRecipe,
           [recipe]: event.target.value,
           category_id: this.props.activeCategory.id,
+          is_liked: false
 
       }
     })
@@ -92,15 +99,6 @@ class Category extends Component {
     this.handleClose();
   }
 
-  // updateRecipe = (id) => {
-  //   console.log('in updateRecipe');
-  //   // const action = ({
-  //   //   type: COOKBOOK_ACTIONS.UPDATE_RECIPE,
-  //   //   payload: id
-  //   // })
-  //   // this.props.dispatch(action); 
-  // }
-
   deleteRecipe = (id) => {
     console.log('in deleteRecipe');
     const action = ({
@@ -108,6 +106,27 @@ class Category extends Component {
       payload: id
     })
     this.props.dispatch(action);
+  }
+
+  likeRecipe = (id) => {
+    console.log('in likeRecipe', this.state.newRecipe);
+    let liked = this.props.likes.filter(like => like.recipe_id === id).length > 0 ? true : false;
+    console.log('sdf;kljsfdjk', liked);
+    
+    if(liked){
+      const action = ({
+        type: COOKBOOK_ACTIONS.DELETE_LIKE,
+        payload: id
+      })
+      this.props.dispatch(action);
+    } else {
+      const action = ({
+        type: COOKBOOK_ACTIONS.LIKE_RECIPE,
+        payload: id
+      })
+      this.props.dispatch(action);
+    }
+
   }
 
   handleClickOpen = () => {
@@ -139,30 +158,44 @@ class Category extends Component {
             return (
               <div className="RecipeDiv" >
               <Card  key={recipe.id}>
-                        <CardMedia
+                        {/* <CardMedia
                           image="food--1200x600.jpg"
                           title="food--1200x600"
-                        />
+                        /> */}
                         <CardContent onClick={() => this.handleClick(recipe)}>
                           <Typography gutterBottom variant="headline" component="h2">
                             {recipe.recipe_name}
                           </Typography>
+                          <Typography paragraph variant="body2">
+                            Prep Time: {recipe.prep_time}
+                          </Typography>
+                          <Typography paragraph>
+                            Cook Time: {recipe.cook_time}
+                          </Typography>
+                          <Typography paragraph>
+                            Servings: {recipe.servings}
+                          </Typography>
+                          <Typography paragraph>
+                            Ingredients: {recipe.ingredients}
+                          </Typography>
+                          <Typography paragraph>
+                            Instructions: {recipe.instructions}
+                          </Typography>
                         </CardContent>
                         <CardActions>
-                          {/* <Button onClick={() => this.updateRecipe(recipe.id)} size="small" color="primary" >
-                            Update
-                          </Button> */}
-                          {/* <EditRecipe /> */}
+                          <EditRecipe recipe={recipe}/>
                           <Button onClick={() => this.deleteRecipe(recipe.id)} size="small" color="primary">
                             Delete <DeleteIcon className="rightIcon" />
                           </Button>
+                          <IconButton style={this.props.likes.filter(like => like.recipe_id === recipe.id).length > 0 ? {color: 'red'} : {color: 'white'}} onClick={() => this.likeRecipe(recipe.id)} >
+
+                            <FavoriteIcon />
+                          </IconButton>
                         </CardActions>
                       </Card>
                  
             </div>)}
     )}
-    {/* <input type="text" value={this.state.recipe_name} onChange={this.handleRecipe('recipe_name')}></input>
-        <Button onClick={()=>this.addRecipe(this.state.newRecipe)} className="Button" size="small" variant="contained">+ Add Recipe</Button> */}
        
        <Button onClick={this.handleClickOpen}>+ Add Recipe</Button>
         <Dialog
@@ -179,7 +212,6 @@ class Category extends Component {
               value={this.state.newRecipe.recipe_name} 
               onChange={this.handleRecipe('recipe_name')}
               name="recipe_name"
-              placeholder='Recipe Name'
               autoFocus
               margin="dense"
               label="Recipe Name"
@@ -190,7 +222,6 @@ class Category extends Component {
               value={this.state.newRecipe.prep_time} 
               onChange={this.handleRecipe('prep_time')}
               name="prep_time"
-              placeholder='Prep Time'
               autoFocus
               margin="dense"
               label="Prep Time"
@@ -201,7 +232,6 @@ class Category extends Component {
               value={this.state.newRecipe.cook_time} 
               onChange={this.handleRecipe('cook_time')}
               name="cook_time"
-              placeholder='Cook Time'
               autoFocus
               margin="dense"
               label="Cook Time"
@@ -212,7 +242,6 @@ class Category extends Component {
               value={this.state.newRecipe.servings} 
               onChange={this.handleRecipe('servings')}
               name="servings"
-              placeholder='Servings'
               autoFocus
               margin="dense"
               label="Servings"
@@ -223,7 +252,6 @@ class Category extends Component {
               value={this.state.newRecipe.ingredients} 
               onChange={this.handleRecipe('ingredients')}
               name="ingredients"
-              placeholder='List of Ingredients'
               autoFocus
               margin="dense"
               label="List of Ingredients"
@@ -234,7 +262,6 @@ class Category extends Component {
               value={this.state.newRecipe.instructions} 
               onChange={this.handleRecipe('instructions')}
               name="instructions"
-              placeholder='Instructions'
               autoFocus
               margin="dense"
               label="Instructions"
@@ -246,7 +273,7 @@ class Category extends Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={()=>this.addRecipe(this.state.newRecipe)}color="primary">
+            <Button onClick={()=>this.addRecipe(this.state.newRecipe)} color="primary">
               Add Recipe
             </Button>
           </DialogActions>

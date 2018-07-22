@@ -4,7 +4,7 @@ import ProfileNav from '../../components/ProfileNav/ProfileNav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 // import { triggerLogout } from '../../redux/actions/loginActions';
 import {COOKBOOK_ACTIONS} from '../../redux/actions/cookbookActions';
-import AddCategory from '../AddCategory/AddCategory';
+// import AddCategory from '../AddCategory/AddCategory';
 import EditCategory from '../EditCategory/EditCategory';
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -12,7 +12,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+// import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
@@ -37,8 +37,7 @@ class Cookbook extends Component {
       newCategory: {
         category_name: '',
         image: '/images/food--1200x600.jpg',
-        cookbook_id: '',
-        user_id: 1
+        cookbook_id: ''
       }
     }
   }
@@ -91,15 +90,6 @@ class Cookbook extends Component {
     this.handleClose();
   }
 
-  // updateCategory = (id) => {
-  //   console.log('in updateCategory');
-  //   // const action = ({
-  //   //   type: COOKBOOK_ACTIONS.UPDATE_CATEGORY,
-  //   //   payload: id
-  //   // })
-  //   // this.props.dispatch(action); 
-  // }
-
   deleteCategory = (id) => {
     console.log('in deleteCategory');
     const action = ({
@@ -138,10 +128,10 @@ class Cookbook extends Component {
             return (
         <div className="CategoryDiv">
           <Card  key={category.id}>
-                    <CardMedia
+                    {/* <CardMedia
                       image="/images/food--1200x600.jpg"
                       title="Food"
-                    />
+                    /> */}
                     <CardContent onClick={() => this.handleClick(category)}>
                       <Typography gutterBottom variant="headline" component="h2">
                         {category.category_name}
@@ -151,7 +141,7 @@ class Cookbook extends Component {
                       {/* <Button onClick={() => this.updateCategory(category.id)} size="small" color="primary" >
                         Update
                       </Button> */}
-                      <EditCategory />
+                      <EditCategory category={category}/>
                       <Button onClick={() => this.deleteCategory(category.id)} size="small" color="primary">
                         Delete <DeleteIcon className="rightIcon" />
                       </Button>
@@ -180,7 +170,7 @@ class Cookbook extends Component {
               autoFocus
               margin="dense"
               id="name"
-              label="Cookbook Name"
+              label="Category Name"
               type="email"
               fullWidth
             />
