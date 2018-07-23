@@ -109,9 +109,9 @@ class RecipeReviewCard extends React.Component {
     const { classes } = this.props;
     return (
       <div className="RecipeDiv">
-        <Card className={classes.card}>
+        <Card className={classes.card} style={{backgroundColor: "#DEDEE0"}}>
           <CardHeader
-            title={<h4>{this.props.recipe.recipe_name}</h4>}
+            title={<h5>{this.props.recipe.recipe_name}</h5>}
           />
           <CardMedia
             className={classes.media}

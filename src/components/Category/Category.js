@@ -109,7 +109,7 @@ class Category extends Component {
           
           <h2>
           <p>
-          <Link to="/cookbook" style={{ textDecoration: 'none', textColor: 'balck' }}>
+          <Link to="/cookbook" style={{ textDecoration: 'none', color: 'black' }}>
              {this.props.activeCategory.category_name}
           </Link>
           </p>
@@ -123,7 +123,7 @@ class Category extends Component {
       <div>
         <ProfileNav />
         { content } 
-        <Button onClick={this.handleClickOpen}>+ Add Recipe</Button>
+        <Button onClick={this.handleClickOpen} style={{backgroundColor:"#717481"}}>+ Add Recipe</Button>
         {this.props.recipes.filter(recipe => recipe.category_id === this.props.activeCategory.id).map(recipe => {
             return (
               <div className="recipe" >

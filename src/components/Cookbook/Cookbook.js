@@ -119,7 +119,7 @@ class Cookbook extends Component {
           
           <h2>
           <p>
-          <Link to="/main" style={{ textDecoration: 'none' }}>
+          <Link to="/main" style={{ textDecoration: 'none', color: "black" }}>
             {this.props.activeCookbook.cookbook_name}
           </Link>
           </p>
@@ -134,14 +134,14 @@ class Cookbook extends Component {
       <div>
         <ProfileNav/>
         { content }
-        <Button onClick={this.handleClickOpen}>+ Add Category</Button>
+        <Button onClick={this.handleClickOpen} style={{backgroundColor:"#717481"}}>+ Add Category</Button>
         {this.props.categories.filter(category => category.cookbook_id === this.props.activeCookbook.id).map(category => {
             return (
         <div className="cookbook">
-          <Card  key={category.id} className="CookbookDiv">
+          <Card  key={category.id} className="CookbookDiv" style={{backgroundColor: "#DEDEE0"}}>
                     <CardContent onClick={() => this.handleClick(category)}>
-                      <Typography gutterBottom variant="headline" component="h2">
-                        {category.category_name}
+                      <Typography gutterBottom variant="headline" component="h2" >
+                        <p>{category.category_name}</p>
                       </Typography>
                     </CardContent>
                     <CardActions>

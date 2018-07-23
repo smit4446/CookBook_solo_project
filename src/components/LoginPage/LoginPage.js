@@ -66,11 +66,10 @@ class LoginPage extends Component {
   render() {
     return (
       <div className = "bg-img">
-       
         { this.renderAlert() }
         <form onSubmit={this.login} className="loginForm">
           <h1>Login</h1>
-          <div >
+          <div>
             <label htmlFor="username">
               Username:
               <input
@@ -97,8 +96,9 @@ class LoginPage extends Component {
               type="submit"
               name="submit"
               value="Log In"
+              id="loginButton"
             />
-            <Link to="/register">Register</Link>
+            <Link to="/register" id="registerButton">Register</Link>
           </div>
         </form>
        

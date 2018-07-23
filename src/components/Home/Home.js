@@ -123,7 +123,7 @@ class Home extends Component {
     if (this.props.user.userName) {
       content = (
         <div>
-          <Button onClick={this.logout}>
+          <Button onClick={this.logout} style={{backgroundColor:"#717481"}}>
             Log Out
           </Button>
         </div>
@@ -131,17 +131,18 @@ class Home extends Component {
     }
     
     return (
-      <div>
+      <div >
         <HomeNav />
         <h2><p>Cookbook Collection</p></h2>
-        <Button onClick={this.handleAddClickOpen}>+ Add Cookbook</Button>
+        <Button onClick={this.handleAddClickOpen} style={{backgroundColor:"#717481"}}>+ Add Cookbook</Button>
+        <div className="CookbookDiv">
           {this.props.cookbooks.map((book) => {
             return (
               <div className="cookbook">
-                 <Card key={book.id} className="CookbookDiv">
+                 <Card key={book.id} style={{backgroundColor: "#DEDEE0"}}>
                     <CardContent onClick={() => this.handleClick(book)}>
                       <Typography gutterBottom variant="headline" component="h2">
-                        {book.cookbook_name}
+                       <p>{book.cookbook_name}</p>
                       </Typography>
                     </CardContent>
                     <CardActions>
@@ -151,6 +152,7 @@ class Home extends Component {
                   </Card>
               </div>)}
         )}
+        </div>
         <div>
         <Dialog
           open={this.state.open}
@@ -191,6 +193,7 @@ class Home extends Component {
           { content }  
           </footer>
         </div>
+        <br/>
       </div>
     );
   }

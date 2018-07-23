@@ -11,6 +11,14 @@ body {
     text-align: center;
 }
 
+html { 
+  background: url(/static/images/cards/cut.jpeg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 p {
     font-family: 'Josefin Sans', sans-serif; 
     text-align: center;
@@ -20,16 +28,17 @@ CardHeader {
     font-family: 'Josefin Sans', sans-serif; 
 }
 
-/* .card {
-    max-width: 300px;
-    text-align: center;
-    align-self: center;
-} */
+
 
 .CookbookDiv {
     padding-top: 3%;
     text-align: center;
     width: 300px;
+    margin: auto;
+    overflow: auto;
+    display: block;
+    background-size:auto;
+    
    
 }
 
@@ -37,8 +46,7 @@ CardHeader {
 .cookbook {
     padding: 3%;
     text-align: center;
-    width: 350px;
-    display: inline-block;
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 .recipe {
@@ -49,6 +57,7 @@ CardHeader {
 
 .homeIcon {
     float: left;
+    display:inline-flex;
 }
 
 .instructions h1 {
@@ -64,14 +73,27 @@ CardHeader {
 }
 
 form {
-    background-color: #dbd5d5;
+    /* background-color: #dbd5d5; */
     width: 30%;
     height: 250px;
-    margin: 20px auto;
+    margin: auto;
+    margin-top: 15px;
     padding: 25px;
     border-radius: 2px;
     font-family: 'Josefin Sans', sans-serif;
+    background: rgba(43,43,46,0.8);
+    color: white;
 }
+
+#loginButton {
+    color: white;
+    font-size: 20px;
+}
+
+#registerButton {
+    color: white;
+}
+
 
 input {
     margin: 5px;
