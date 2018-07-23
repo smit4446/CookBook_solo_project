@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { triggerLogin, formError, clearError } from '../../redux/actions/loginActions';
+import './LoginPage.css';
+
 
 
 const mapStateToProps = state => ({
@@ -18,6 +20,7 @@ class LoginPage extends Component {
       password: '',
     };
   }
+
 
   componentDidMount() {
     this.props.dispatch(clearError());
@@ -62,11 +65,12 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className = "bg-img">
+       
         { this.renderAlert() }
-        <form onSubmit={this.login}>
+        <form onSubmit={this.login} className="loginForm">
           <h1>Login</h1>
-          <div>
+          <div >
             <label htmlFor="username">
               Username:
               <input
@@ -97,6 +101,7 @@ class LoginPage extends Component {
             <Link to="/register">Register</Link>
           </div>
         </form>
+       
       </div>
     );
   }

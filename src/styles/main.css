@@ -1,5 +1,47 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.header {
+    background-color: #AA3939;
+    padding: 5px;
+    color: #ece7e7;
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: center;
+}
+
+p {
+    font-family: 'Josefin Sans', sans-serif; 
+}
+
+CardHeader {
+    font-family: 'Josefin Sans', sans-serif; 
+}
+
+.card {
+    max-width: 300px;
+    text-align: center;
+    align-self: center;
+}
+
+.CookbookDiv {
+    padding-top: 3%;
+    text-align: center;
+    width: 300px;
+}
+
+.cookbook {
+    padding-top: 3%;
+    text-align: center;
+    width: 300px;
+}
+
+.homeIcon {
+    float: left;
+}
+
+.loginForm {
+    background-color: #69907B;
 }
 
 .instructions h1 {
@@ -11,6 +53,7 @@ body {
     background-color: #AA3939;
     padding: 5px;
     color: #ece7e7;
+    
 }
 
 form {
@@ -20,23 +63,28 @@ form {
     margin: 20px auto;
     padding: 25px;
     border-radius: 2px;
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 input {
     margin: 5px;
     margin-bottom: 10px;
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 input[type="submit"] {
     margin: 10px;
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 .message {
     padding: 10px 0;
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 .message p {
     margin-left: 10px;
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 .message:nth-child(odd) {
@@ -51,6 +99,7 @@ input[type="submit"] {
   background-color:  #AA3939;
   width: 100%;
   border-radius: 0px;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 ul {
@@ -58,6 +107,7 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    font-family: 'Josefin Sans', sans-serif;
 }
 
 li {

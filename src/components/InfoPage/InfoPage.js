@@ -3,9 +3,13 @@ import { connect } from 'react-redux';
 // import Button from '@material-ui/core/Button';
 import ProfileNav from '../../components/ProfileNav/ProfileNav';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
+// import FavoriteRecipes from '../FavoriteRecipes/FavoriteRecipes';
 
 const mapStateToProps = state => ({
   user: state.user,
+  recipes: state.cookbookReducer.recipe,
+  activeCategory: state.cookbookReducer.activeCategory,
+  likes: state.cookbookReducer.likes
 });
 
 class InfoPage extends Component {
@@ -27,8 +31,9 @@ class InfoPage extends Component {
         <div>
           <p>
             Profile:
-            {this.props.user.userName}
+            {this.props.user.userName.username}
           </p>
+          {/* <FavoriteRecipes /> */}
         </div>
       );
     }

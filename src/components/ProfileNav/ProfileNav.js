@@ -6,7 +6,7 @@ const ProfileNav = () => (
   <div className="navbar">
     <div>
       <ul>
-        <li>
+        <li className="homeIcon">
         <Link to="/main"><SvgIcons /></Link>
         </li>
       </ul>

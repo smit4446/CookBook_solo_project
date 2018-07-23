@@ -24,6 +24,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import IconButton from '@material-ui/core/IconButton';
+import RecipeReviewCard from '../RecipeCard/RecipeCard';
 
 const mapStateToProps = state => ({
   user: state.user,
@@ -43,7 +44,8 @@ class Category extends Component {
         cook_time: '',
         servings: '',
         instructions: '',
-        ingredients: ''
+        ingredients: '',
+        summary: ''
       }
     }
   }
@@ -65,16 +67,6 @@ class Category extends Component {
     }
   }
 
-  handleClick = (recipe) => {
-    console.log('recipe is', recipe);
-    const action = ({
-      type: 'SET_ACTIVE_RECIPE',
-      payload: recipe
-    })
-    this.props.dispatch(action);
-    this.props.history.push('recipe');
-  }
-
   handleRecipe = (recipe) => (event) => {
     console.log('event happended', this.props.activeCategory)
     this.setState({
@@ -83,7 +75,6 @@ class Category extends Component {
           [recipe]: event.target.value,
           category_id: this.props.activeCategory.id,
           is_liked: false
-
       }
     })
     console.log(this.state);
@@ -97,36 +88,6 @@ class Category extends Component {
     })
     this.props.dispatch(action);
     this.handleClose();
-  }
-
-  deleteRecipe = (id) => {
-    console.log('in deleteRecipe');
-    const action = ({
-      type: COOKBOOK_ACTIONS.DELETE_RECIPE,
-      payload: id
-    })
-    this.props.dispatch(action);
-  }
-
-  likeRecipe = (id) => {
-    console.log('in likeRecipe', this.state.newRecipe);
-    let liked = this.props.likes.filter(like => like.recipe_id === id).length > 0 ? true : false;
-    console.log('sdf;kljsfdjk', liked);
-    
-    if(liked){
-      const action = ({
-        type: COOKBOOK_ACTIONS.DELETE_LIKE,
-        payload: id
-      })
-      this.props.dispatch(action);
-    } else {
-      const action = ({
-        type: COOKBOOK_ACTIONS.LIKE_RECIPE,
-        payload: id
-      })
-      this.props.dispatch(action);
-    }
-
   }
 
   handleClickOpen = () => {
@@ -143,9 +104,11 @@ class Category extends Component {
     if (this.props.user.userName) {
       content = (
         <div>
+          <h1>
           <p>
             {this.props.activeCategory.category_name}
           </p>
+          </h1>
         </div>
       );
     }
@@ -154,48 +117,14 @@ class Category extends Component {
       <div>
         <ProfileNav />
         { content } 
+        
         {this.props.recipes.filter(recipe => recipe.category_id === this.props.activeCategory.id).map(recipe => {
             return (
               <div className="RecipeDiv" >
-              <Card  key={recipe.id}>
-                        {/* <CardMedia
-                          image="food--1200x600.jpg"
-                          title="food--1200x600"
-                        /> */}
-                        <CardContent onClick={() => this.handleClick(recipe)}>
-                          <Typography gutterBottom variant="headline" component="h2">
-                            {recipe.recipe_name}
-                          </Typography>
-                          <Typography paragraph variant="body2">
-                            Prep Time: {recipe.prep_time}
-                          </Typography>
-                          <Typography paragraph>
-                            Cook Time: {recipe.cook_time}
-                          </Typography>
-                          <Typography paragraph>
-                            Servings: {recipe.servings}
-                          </Typography>
-                          <Typography paragraph>
-                            Ingredients: {recipe.ingredients}
-                          </Typography>
-                          <Typography paragraph>
-                            Instructions: {recipe.instructions}
-                          </Typography>
-                        </CardContent>
-                        <CardActions>
-                          <EditRecipe recipe={recipe}/>
-                          <Button onClick={() => this.deleteRecipe(recipe.id)} size="small" color="primary">
-                            Delete <DeleteIcon className="rightIcon" />
-                          </Button>
-                          <IconButton style={this.props.likes.filter(like => like.recipe_id === recipe.id).length > 0 ? {color: 'red'} : {color: 'white'}} onClick={() => this.likeRecipe(recipe.id)} >
-
-                            <FavoriteIcon />
-                          </IconButton>
-                        </CardActions>
-                      </Card>
-                 
-            </div>)}
-    )}
+              <RecipeReviewCard recipe={recipe} likes={this.props.likes}/>   
+            </div>
+            )}
+        )}
        
        <Button onClick={this.handleClickOpen}>+ Add Recipe</Button>
         <Dialog
@@ -245,6 +174,16 @@ class Category extends Component {
               autoFocus
               margin="dense"
               label="Servings"
+              type="email"
+              fullWidth
+            />
+            <TextField 
+              value={this.state.newRecipe.summary} 
+              onChange={this.handleRecipe('summary')}
+              name="summary"
+              autoFocus
+              margin="dense"
+              label="Summary"
               type="email"
               fullWidth
             />

@@ -15,6 +15,7 @@ import CardContent from '@material-ui/core/CardContent';
 // import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
 
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -22,6 +23,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+
 
 
 const mapStateToProps = state => ({
@@ -131,12 +133,8 @@ class Home extends Component {
         <HomeNav />
           {this.props.cookbooks.map((book) => {
             return (
-              <div className="CookbookDiv" >
-                 <Card key={book.id}>
-                    {/* <CardMedia
-                      image="food--1200x600.jpg"
-                      title="food--1200x600"
-                    /> */}
+              <div className="cookbook">
+                 <Card key={book.id} className="CookbookDiv">
                     <CardContent onClick={() => this.handleClick(book)}>
                       <Typography gutterBottom variant="headline" component="h2">
                         {book.cookbook_name}
@@ -144,15 +142,14 @@ class Home extends Component {
                     </CardContent>
                     <CardActions>
                       <EditCookbook book={book}/>
-                      <Button onClick={() => this.deleteCookbook(book.id)} size="small" color="primary">
-                        Delete <DeleteIcon className="rightIcon" />
-                      </Button>
+                      <IconButton onClick={() => this.deleteCookbook(book.id)} size="small" color="primary">
+                        <DeleteIcon className="rightIcon" />
+                      </IconButton>
                     </CardActions>
                   </Card>
               </div>)}
         )}
-
-        <Button onClick={this.handleAddClickOpen}>+ Add Cookbook</Button>
+        <div>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -184,7 +181,14 @@ class Home extends Component {
             </Button>
           </DialogActions>
         </Dialog>
-        { content }
+        
+        </div>
+        <div>
+          <footer>
+          <Button onClick={this.handleAddClickOpen}>+ Add Cookbook</Button>
+          { content }  
+          </footer>
+        </div>
       </div>
     );
   }

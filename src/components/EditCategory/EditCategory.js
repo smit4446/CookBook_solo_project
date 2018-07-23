@@ -9,6 +9,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import {COOKBOOK_ACTIONS} from '../../redux/actions/cookbookActions';
 import { connect } from 'react-redux';
 // import { timingSafeEqual } from 'crypto';
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
 
 const mapStateToProps = state => ({
   user: state.user,
@@ -62,7 +64,9 @@ class EditCategory extends React.Component {
   render() {
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>Edit</Button>
+        <IconButton onClick={this.handleClickOpen}>
+        <Icon>edit_icon</Icon>
+        </IconButton>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}

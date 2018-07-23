@@ -31,8 +31,8 @@ router.put('/name/:id', (req, res) => {
     console.log('updating name');
     const id = req.params.id
     // if (req.isAuthenticated()){
-        let queryText = `UPDATE recipes SET recipe_name = $1, prep_time = $2, cook_time = $3, servings = $4, instructions = $5, ingredients = $6 WHERE id = $7;`;
-        pool.query(queryText, [req.body.recipe_name, req.body.prep_time, req.body.cook_time, req.body.servings, req.body.instructions, req.body.ingredients, id]).then((result) => {
+        let queryText = `UPDATE recipes SET recipe_name = $1, prep_time = $2, cook_time = $3, servings = $4, instructions = $5, ingredients = $6, summary = $7 WHERE id = $8;`;
+        pool.query(queryText, [req.body.recipe_name, req.body.prep_time, req.body.cook_time, req.body.servings, req.body.instructions, req.body.ingredients, req.body.summary, id]).then((result) => {
             res.sendStatus(201);
         }).catch((error)=>{
             console.log('error updating recipe name', error);
@@ -84,8 +84,8 @@ router.delete('/like/:id', (req,res) => {
 router.post('/', (req,res) => {
     console.log('in category router post',req.body);
     // if(req.isAuthenticated()){
-        let queryText = 'INSERT INTO recipes (recipe_name, category_id, user_id, prep_time, cook_time, servings, instructions, ingredients) Values ($1, $2, $3, $4, $5, $6, $7, $8);';
-        pool.query(queryText, [req.body.recipe_name, req.body.category_id, req.user.id, req.body.prep_time, req.body.cook_time, req.body.servings, req.body.instructions, req.body.ingredients]).then((result)=>{
+        let queryText = 'INSERT INTO recipes (recipe_name, category_id, user_id, prep_time, cook_time, servings, instructions, ingredients, summary) Values ($1, $2, $3, $4, $5, $6, $7, $8, $9);';
+        pool.query(queryText, [req.body.recipe_name, req.body.category_id, req.user.id, req.body.prep_time, req.body.cook_time, req.body.servings, req.body.instructions, req.body.ingredients, req.body.summary]).then((result)=>{
             res.sendStatus(201);
             console.log('successfully posted recipe');
         }).catch((error)=>{

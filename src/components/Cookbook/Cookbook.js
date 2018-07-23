@@ -12,9 +12,11 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-// import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Icon from '@material-ui/core/Icon';
+import SvgIcon from '@material-ui/core/SvgIcon';
+import IconButton from '@material-ui/core/IconButton';
 
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -22,7 +24,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
 
 const mapStateToProps = state => ({
   user: state.user,
@@ -36,7 +37,6 @@ class Cookbook extends Component {
     this.state = {
       newCategory: {
         category_name: '',
-        image: '/images/food--1200x600.jpg',
         cookbook_id: ''
       }
     }
@@ -113,9 +113,11 @@ class Cookbook extends Component {
     if (this.props.user.userName) {
       content = (
         <div>
+          <h1>
           <p>
             {this.props.activeCookbook.cookbook_name}
           </p>
+          </h1>
         </div>
       );
     }
@@ -126,25 +128,18 @@ class Cookbook extends Component {
         { content }
         {this.props.categories.filter(category => category.cookbook_id === this.props.activeCookbook.id).map(category => {
             return (
-        <div className="CategoryDiv">
-          <Card  key={category.id}>
-                    {/* <CardMedia
-                      image="/images/food--1200x600.jpg"
-                      title="Food"
-                    /> */}
+        <div className="CookbookDiv">
+          <Card  key={category.id} className="CookbookDiv">
                     <CardContent onClick={() => this.handleClick(category)}>
                       <Typography gutterBottom variant="headline" component="h2">
                         {category.category_name}
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      {/* <Button onClick={() => this.updateCategory(category.id)} size="small" color="primary" >
-                        Update
-                      </Button> */}
                       <EditCategory category={category}/>
-                      <Button onClick={() => this.deleteCategory(category.id)} size="small" color="primary">
-                        Delete <DeleteIcon className="rightIcon" />
-                      </Button>
+                      <IconButton onClick={() => this.deleteCategory(category.id)} size="small" color="primary">
+                        <DeleteIcon className="rightIcon" />
+                      </IconButton>
                     </CardActions>
                   </Card>
         </div>)}

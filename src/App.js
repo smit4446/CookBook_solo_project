@@ -15,8 +15,6 @@ import Home from './components/Home/Home';
 import Cookbook from './components/Cookbook/Cookbook';
 import Category from './components/Category/Category';
 import Recipe from './components/Recipe/Recipe';
-import Footer from './components/Footer/Footer';
-
 import './styles/main.css';
 
 const App = () => (
@@ -59,12 +57,8 @@ const App = () => (
         />
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />
-
       </Switch>
     </Router>
-    <div>
-    <Footer title="Lauren Smith"/>
-    </div>
   </div>
 );
 

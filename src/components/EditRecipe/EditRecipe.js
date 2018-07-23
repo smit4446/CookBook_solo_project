@@ -8,6 +8,10 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {COOKBOOK_ACTIONS} from '../../redux/actions/cookbookActions';
 import { connect } from 'react-redux';
+import FloatingActionButtons from '../ActionButtons/ActionButtons';
+import Icon from '@material-ui/core/Icon';
+import SvgIcon from '@material-ui/core/SvgIcon';
+import IconButton from '@material-ui/core/IconButton';
 // import { timingSafeEqual } from 'crypto';
 
 const mapStateToProps = state => ({
@@ -62,7 +66,9 @@ class EditRecipe extends React.Component {
   render() {
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>Edit</Button>
+        <IconButton onClick={this.handleClickOpen}>
+        <Icon>edit_icon</Icon>
+        </IconButton>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -111,6 +117,16 @@ class EditRecipe extends React.Component {
               autoFocus
               margin="dense"
               label="Servings"
+              fullWidth
+            />
+            <TextField 
+              value={this.state.updatedRecipe.summary} 
+              defaultValue={this.props.recipe.summary}
+              onChange={this.handleUpdate('summary')}
+              name="summary"
+              autoFocus
+              margin="dense"
+              label="Summary"
               fullWidth
             />
             <TextField 
