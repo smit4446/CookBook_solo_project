@@ -23,6 +23,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import CookbookAlertDiagram from '../CookbookAlert/CookbookAlert';
+import { Link } from 'react-router-dom';
 
 
 
@@ -93,14 +95,14 @@ class Home extends Component {
     this.handleClose();
   }
 
-  deleteCookbook = (id) => {
-    console.log('in deleteCookbook');
-    const action = ({
-      type: COOKBOOK_ACTIONS.DELETE_COOKBOOK,
-      payload: id
-    })
-    this.props.dispatch(action);
-  }
+  // deleteCookbook = (id) => {
+  //   console.log('in deleteCookbook');
+  //   const action = ({
+  //     type: COOKBOOK_ACTIONS.DELETE_COOKBOOK,
+  //     payload: id
+  //   })
+  //   this.props.dispatch(action);
+  // }
 
   handleAddClickOpen = () => {
     this.setState({ open: true });
@@ -131,6 +133,8 @@ class Home extends Component {
     return (
       <div>
         <HomeNav />
+        <h2><p>Cookbook Collection</p></h2>
+        <Button onClick={this.handleAddClickOpen}>+ Add Cookbook</Button>
           {this.props.cookbooks.map((book) => {
             return (
               <div className="cookbook">
@@ -142,9 +146,7 @@ class Home extends Component {
                     </CardContent>
                     <CardActions>
                       <EditCookbook book={book}/>
-                      <IconButton onClick={() => this.deleteCookbook(book.id)} size="small" color="primary">
-                        <DeleteIcon className="rightIcon" />
-                      </IconButton>
+                      <CookbookAlertDiagram book={book}/>
                     </CardActions>
                   </Card>
               </div>)}
@@ -185,7 +187,7 @@ class Home extends Component {
         </div>
         <div>
           <footer>
-          <Button onClick={this.handleAddClickOpen}>+ Add Cookbook</Button>
+          
           { content }  
           </footer>
         </div>

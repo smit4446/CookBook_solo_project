@@ -98,6 +98,8 @@ class EditRecipe extends React.Component {
               margin="dense"
               label="Prep Time"
               fullWidth
+              multiLine={true}
+              rows={10}
             />
             <TextField 
               value={this.state.updatedRecipe.cook_time} 
@@ -126,7 +128,7 @@ class EditRecipe extends React.Component {
               name="summary"
               autoFocus
               margin="dense"
-              label="Summary"
+              label="Notes"
               fullWidth
             />
             <TextField 

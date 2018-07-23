@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import SvgIcons from '../HomeIcon/HomeIcon';
+import IconButton from '@material-ui/core/IconButton';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const HomeNav = () => (
   <div className="navbar">
@@ -8,7 +9,9 @@ const HomeNav = () => (
       <ul>
         <li>
           <Link to="/info">
-            Favorites
+            <IconButton>
+              <FavoriteIcon/>
+            </IconButton>
           </Link>
         </li>
       </ul>

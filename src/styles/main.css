@@ -1,5 +1,6 @@
 body {
     font-family: 'Josefin Sans', sans-serif;
+    background-image: './static/images/cards/backgroundimage.jpg'
 }
 
 .header {
@@ -12,36 +13,42 @@ body {
 
 p {
     font-family: 'Josefin Sans', sans-serif; 
+    text-align: center;
 }
 
 CardHeader {
     font-family: 'Josefin Sans', sans-serif; 
 }
 
-.card {
+/* .card {
     max-width: 300px;
     text-align: center;
     align-self: center;
-}
+} */
 
 .CookbookDiv {
     padding-top: 3%;
     text-align: center;
     width: 300px;
+   
 }
 
+
 .cookbook {
-    padding-top: 3%;
+    padding: 3%;
     text-align: center;
-    width: 300px;
+    width: 350px;
+    display: inline-block;
+}
+
+.recipe {
+    padding: 3%;
+    text-align: center;
+    width: 350px;
 }
 
 .homeIcon {
     float: left;
-}
-
-.loginForm {
-    background-color: #69907B;
 }
 
 .instructions h1 {

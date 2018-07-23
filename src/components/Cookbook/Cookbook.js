@@ -7,6 +7,7 @@ import {COOKBOOK_ACTIONS} from '../../redux/actions/cookbookActions';
 // import AddCategory from '../AddCategory/AddCategory';
 import EditCategory from '../EditCategory/EditCategory';
 import DeleteIcon from '@material-ui/icons/Delete';
+import CategoryAlert from '../CategoryAlert/CategoryAlert';
 
 
 import Card from '@material-ui/core/Card';
@@ -24,6 +25,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { Link } from 'react-router-dom';
+import { ContentLink } from 'material-ui';
 
 const mapStateToProps = state => ({
   user: state.user,
@@ -90,14 +93,14 @@ class Cookbook extends Component {
     this.handleClose();
   }
 
-  deleteCategory = (id) => {
-    console.log('in deleteCategory');
-    const action = ({
-      type: COOKBOOK_ACTIONS.DELETE_CATEGORY,
-      payload: id
-    })
-    this.props.dispatch(action);
-  }
+  // deleteCategory = (id) => {
+  //   console.log('in deleteCategory');
+  //   const action = ({
+  //     type: COOKBOOK_ACTIONS.DELETE_CATEGORY,
+  //     payload: id
+  //   })
+  //   this.props.dispatch(action);
+  // }
 
   handleClickOpen = () => {
     this.setState({ open: true });
@@ -113,11 +116,16 @@ class Cookbook extends Component {
     if (this.props.user.userName) {
       content = (
         <div>
-          <h1>
+          
+          <h2>
           <p>
+          <Link to="/main" style={{ textDecoration: 'none' }}>
             {this.props.activeCookbook.cookbook_name}
+          </Link>
           </p>
-          </h1>
+          
+          </h2>
+          
         </div>
       );
     }
@@ -126,9 +134,10 @@ class Cookbook extends Component {
       <div>
         <ProfileNav/>
         { content }
+        <Button onClick={this.handleClickOpen}>+ Add Category</Button>
         {this.props.categories.filter(category => category.cookbook_id === this.props.activeCookbook.id).map(category => {
             return (
-        <div className="CookbookDiv">
+        <div className="cookbook">
           <Card  key={category.id} className="CookbookDiv">
                     <CardContent onClick={() => this.handleClick(category)}>
                       <Typography gutterBottom variant="headline" component="h2">
@@ -137,18 +146,12 @@ class Cookbook extends Component {
                     </CardContent>
                     <CardActions>
                       <EditCategory category={category}/>
-                      <IconButton onClick={() => this.deleteCategory(category.id)} size="small" color="primary">
-                        <DeleteIcon className="rightIcon" />
-                      </IconButton>
+                      <CategoryAlert category={category}/>
                     </CardActions>
                   </Card>
         </div>)}
         )}
 
-        {/* <input type="text" value={this.state.category_name} onChange={this.handleCategory('category_name')}></input>
-        <Button onClick={()=>this.addCategory(this.state.newCategory)} className="Button" size="small" variant="contained">+ Add Category</Button> */}
-        
-        <Button onClick={this.handleClickOpen}>+ Add Category</Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}

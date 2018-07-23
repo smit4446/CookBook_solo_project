@@ -24,7 +24,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import IconButton from '@material-ui/core/IconButton';
+import Icon from '@material-ui/core/Icon';
 import RecipeReviewCard from '../RecipeCard/RecipeCard';
+import { Link } from 'react-router-dom';
 
 const mapStateToProps = state => ({
   user: state.user,
@@ -104,11 +106,15 @@ class Category extends Component {
     if (this.props.user.userName) {
       content = (
         <div>
-          <h1>
+          
+          <h2>
           <p>
-            {this.props.activeCategory.category_name}
+          <Link to="/cookbook" style={{ textDecoration: 'none', textColor: 'balck' }}>
+             {this.props.activeCategory.category_name}
+          </Link>
           </p>
-          </h1>
+          </h2>
+         
         </div>
       );
     }
@@ -117,16 +123,16 @@ class Category extends Component {
       <div>
         <ProfileNav />
         { content } 
-        
+        <Button onClick={this.handleClickOpen}>+ Add Recipe</Button>
         {this.props.recipes.filter(recipe => recipe.category_id === this.props.activeCategory.id).map(recipe => {
             return (
-              <div className="RecipeDiv" >
+              <div className="recipe" >
               <RecipeReviewCard recipe={recipe} likes={this.props.likes}/>   
             </div>
             )}
         )}
        
-       <Button onClick={this.handleClickOpen}>+ Add Recipe</Button>
+       
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -146,6 +152,7 @@ class Category extends Component {
               label="Recipe Name"
               type="email"
               fullWidth
+              
             />
             <TextField 
               value={this.state.newRecipe.prep_time} 
@@ -183,9 +190,10 @@ class Category extends Component {
               name="summary"
               autoFocus
               margin="dense"
-              label="Summary"
-              type="email"
+              label="Notes"
               fullWidth
+              multiLine
+              rows={10}
             />
             <TextField 
               value={this.state.newRecipe.ingredients} 
@@ -194,8 +202,9 @@ class Category extends Component {
               autoFocus
               margin="dense"
               label="List of Ingredients"
-              type="email"
               fullWidth
+              multiLine
+              rows={10}
             />
             <TextField 
               value={this.state.newRecipe.instructions} 
@@ -204,8 +213,9 @@ class Category extends Component {
               autoFocus
               margin="dense"
               label="Instructions"
-              type="email"
               fullWidth
+              multiLine
+              rows={10}
             />
           </DialogContent>
           <DialogActions>
